@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package ="grpc03/pbfiles";
+
+message EchoRequest{
+    bytes Req=1;
+    int32 sendFileName=2;
+}
+
+message EchoResponse{
+    map<string,int32> Res=1;
+    int32 receiveFileName=2;
+}
+
+service EchoService{
+    rpc GetBidirectionalStreamingEcho(stream EchoRequest) returns (stream EchoResponse);
+}
+
+//protoc --go_out=../pbfiles --go_opt=paths=source_relative --go-grpc_out=../pbfiles --go-grpc_opt=paths=source_relative echo.proto
